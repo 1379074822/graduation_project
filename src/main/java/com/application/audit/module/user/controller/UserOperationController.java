@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Objects;
+
 /**
  * @description:
  * @author:
@@ -26,4 +28,21 @@ public class UserOperationController {
     private UserBO getPersonalInfo(Long userId){
         return userService.findById(userId);
     }
+
+    @RequestMapping("/register")
+    private Boolean register(UserBO userBO){
+        UserBO save = userService.save(userBO);
+        return Objects.nonNull(save);
+    }
+
+    @RequestMapping("/changePassword")
+    private void changePassword(UserBO userBO){
+        userService.changePassword(userBO);
+    }
+
+    @RequestMapping("/changeInfo")
+    private void changeInfo(UserBO userBO){
+        userService.changeInfo(userBO);
+    }
+
 }

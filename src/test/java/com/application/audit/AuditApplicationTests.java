@@ -18,8 +18,8 @@ class AuditApplicationTests {
     @Test
     void test() {
         UserBO userBO = new UserBO();
-        userBO.setUserName("admin");
-        userBO.setPassword("admin");
+        userBO.setUserName("works");
+        userBO.setPassword("works");
         UserBO byUserNameAndPassword = userDao.findByLoginAccountAndPasswordAndTypeAndStatus(userBO.getLoginAccount(),userBO.getPassword(),1,1);
         System.out.println(byUserNameAndPassword);
     }

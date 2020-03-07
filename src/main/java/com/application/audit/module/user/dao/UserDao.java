@@ -2,6 +2,9 @@ package com.application.audit.module.user.dao;
 
 import com.application.audit.module.user.entity.UserBO;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 /**
  * @description:
@@ -11,4 +14,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserDao extends JpaRepository<UserBO,Long> {
     UserBO findByLoginAccountAndPasswordAndTypeAndStatus(String userName, String password,Integer type,Integer Status);
+    @Modifying
+    @Query("update UserBO u set u.password = ?1 where u.id = ?2")
+    void changePassword(String password,Long id);
 }

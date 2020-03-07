@@ -11,4 +11,10 @@ public interface UserService {
     boolean findLoginAccountAndPasswordAndType(UserBO userBo);
 
     UserBO findById(Long userId);
+
+    UserBO save(UserBO userBO);
+
+    void changePassword(UserBO userBO);
+
+    void changeInfo(UserBO userBO);
 }
