@@ -1,5 +1,8 @@
 package com.application.audit.module.user.controller;
 
+import com.application.audit.module.user.entity.UserBO;
+import com.application.audit.module.user.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,8 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/user")
 public class UserOperationController {
+    @Autowired
+    private UserService userService;
     @RequestMapping("/login")
-    private String login(){
-        return "hello";
+    private boolean login(UserBO userBO){
+
+        return userService.findLoginAccountAndPassword(userBO);
     }
 }

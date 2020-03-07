@@ -5,7 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@MapperScan(value = "com.application.audit.mapper")
+@MapperScan(value = "com.application.audit.mapping")
 public class AuditApplication {
 
     public static void main(String[] args) {
