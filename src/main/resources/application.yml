@@ -5,7 +5,7 @@ spring:
   datasource:
     username: user02
     password: Lyc0802!
-    url: jdbc:mysql://47.103.29.16:3306/graduation_project
+    url: jdbc:mysql://47.103.29.16:3306/graduation_project?useUnicode=true&characterEncoding=utf8&useSSL=false
     driver-class-name: com.mysql.jdbc.Driver
 
   jpa:

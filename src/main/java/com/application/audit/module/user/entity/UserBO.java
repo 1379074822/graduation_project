@@ -16,21 +16,7 @@ import javax.persistence.Table;
 @Entity(name = "UserBO")
 @Table(name = "t_user")
 public class UserBO {
-    @Override
-    public String toString() {
-        return "UserBO{" +
-                "id=" + id +
-                ", userName='" + userName + '\'' +
-                ", loginAccount='" + loginAccount + '\'' +
-                ", password='" + password + '\'' +
-                ", phoneNum='" + phoneNum + '\'' +
-                ", age='" + age + '\'' +
-                ", gender='" + gender + '\'' +
-                ", profession='" + profession + '\'' +
-                ", status='" + status + '\'' +
-                ", type='" + type + '\'' +
-                '}';
-    }
+
 
     @Id
     @GeneratedValue
@@ -48,15 +34,15 @@ public class UserBO {
     @Column(name = "phone_num",nullable = true, unique = true)
     private String phoneNum;
     @Column(name = "age",nullable = false)
-    private String age;
+    private Integer age;
     @Column(name = "gender",nullable = false)
-    private String gender;
+    private Integer gender;
     @Column(name = "profession",nullable = false)
-    private String profession;
+    private Integer profession;
     @Column(name = "status",nullable = false)
-    private String status;
+    private Integer status;
     @Column(name = "type",nullable = false)
-    private String type;
+    private Integer type;
 
     public Long getId() {
         return id;
@@ -98,43 +84,59 @@ public class UserBO {
         this.phoneNum = phoneNum;
     }
 
-    public String getAge() {
+    public Integer getAge() {
         return age;
     }
 
-    public void setAge(String age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 
-    public String getGender() {
+    public Integer getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(Integer gender) {
         this.gender = gender;
     }
 
-    public String getProfession() {
+    public Integer getProfession() {
         return profession;
     }
 
-    public void setProfession(String profession) {
+    public void setProfession(Integer profession) {
         this.profession = profession;
     }
 
-    public String getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 
-    public String getType() {
+    public Integer getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(Integer type) {
         this.type = type;
+    }
+
+    @Override
+    public String toString() {
+        return "UserBO{" +
+                "id=" + id +
+                ", userName='" + userName + '\'' +
+                ", loginAccount='" + loginAccount + '\'' +
+                ", password='" + password + '\'' +
+                ", phoneNum='" + phoneNum + '\'' +
+                ", age='" + age + '\'' +
+                ", gender='" + gender + '\'' +
+                ", profession='" + profession + '\'' +
+                ", status='" + status + '\'' +
+                ", type='" + type + '\'' +
+                '}';
     }
 }

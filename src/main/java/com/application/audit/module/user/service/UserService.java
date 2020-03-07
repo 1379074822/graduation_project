@@ -8,5 +8,7 @@ import com.application.audit.module.user.entity.UserBO;
  * @time: 2020/3/7 11:39
  */
 public interface UserService {
-    boolean findLoginAccountAndPassword(UserBO userBo);
+    boolean findLoginAccountAndPasswordAndType(UserBO userBo);
+
+    UserBO findById(Long userId);
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import javax.xml.ws.Action;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * @description:
@@ -19,8 +20,13 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userDao;
     @Override
-    public boolean findLoginAccountAndPassword(UserBO userBO) {
-        UserBO byLoginAccountAndPassword = userDao.findByLoginAccountAndPassword(userBO.getLoginAccount(),userBO.getPassword());
+    public boolean findLoginAccountAndPasswordAndType(UserBO userBO) {
+        UserBO byLoginAccountAndPassword = userDao.findByLoginAccountAndPasswordAndTypeAndStatus(userBO.getLoginAccount(),userBO.getPassword(),1,1);
         return Objects.nonNull(byLoginAccountAndPassword);
+    }
+
+    @Override
+    public UserBO findById(Long userId) {
+        return userDao.findById(userId).get();
     }
 }

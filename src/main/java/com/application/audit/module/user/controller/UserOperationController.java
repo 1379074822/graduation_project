@@ -16,9 +16,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserOperationController {
     @Autowired
     private UserService userService;
+
     @RequestMapping("/login")
     private boolean login(UserBO userBO){
+        return userService.findLoginAccountAndPasswordAndType(userBO);
+    }
 
-        return userService.findLoginAccountAndPassword(userBO);
+    @RequestMapping("/getInfo")
+    private UserBO getPersonalInfo(Long userId){
+        return userService.findById(userId);
     }
 }
