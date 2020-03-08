@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -27,6 +28,11 @@ public class UserOperationController {
     @RequestMapping("/getInfo")
     private UserBO getPersonalInfo(Long userId){
         return userService.findById(userId);
+    }
+
+    @RequestMapping("/getAll")
+    private List<UserBO> getAll(UserBO userBO){
+        return userService.getAll(userBO);
     }
 
     @RequestMapping("/register")

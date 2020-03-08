@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -32,6 +33,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public UserBO save(UserBO userBO) {
          return  userDao.save(userBO);
     }
@@ -43,7 +45,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void changeInfo(UserBO userBO) {
         userDao.save(userBO);
+    }
+
+    @Override
+    public List<UserBO> getAll(UserBO userBO) {
+        return userDao.findByType(userBO.getType());
     }
 }

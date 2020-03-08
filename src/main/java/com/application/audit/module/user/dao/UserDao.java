@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * @description:
  * @author: lyc yuechuan.lian@luckincoffee.com
@@ -17,4 +19,6 @@ public interface UserDao extends JpaRepository<UserBO,Long> {
     @Modifying
     @Query("update UserBO u set u.password = ?1 where u.id = ?2")
     void changePassword(String password,Long id);
+
+    List<UserBO> findByType(Integer type);
 }

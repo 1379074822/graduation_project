@@ -2,6 +2,8 @@ package com.application.audit.module.user.service;
 
 import com.application.audit.module.user.entity.UserBO;
 
+import java.util.List;
+
 /**
  * @description:
  * @author: lyc yuechuan.lian@luckincoffee.com
@@ -17,4 +19,6 @@ public interface UserService {
     void changePassword(UserBO userBO);
 
     void changeInfo(UserBO userBO);
+
+    List<UserBO> getAll(UserBO userBO);
 }

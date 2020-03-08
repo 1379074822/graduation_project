@@ -13,8 +13,8 @@ import javax.persistence.Table;
  * @author:
  * @time: 2020/3/7 17:18
  */
-@Entity(name = "WorksBO")
-@Table(name = "t_works")
+@Entity(name = "ConfigBO")
+@Table(name = "t_config")
 @Data
 public class ConfigBO {
     /**
@@ -37,7 +37,7 @@ public class ConfigBO {
      * 通过率
      **/
     @Column(name = "pass_rate", nullable = false)
-    private Float passRate;
+    private Double passRate;
     /**
      * 通过率启用状态
      **/
