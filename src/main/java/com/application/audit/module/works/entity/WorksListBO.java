@@ -1,5 +1,6 @@
 package com.application.audit.module.works.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import javax.persistence.Column;
@@ -14,66 +15,87 @@ import java.util.Date;
  * @author:
  * @time: 2020/3/7 17:07
  */
-@Entity(name = "WorksBO")
-@Table(name = "t_works")
+
 @Data
-public class WorksBO {
+public class WorksListBO {
     /**
      * 作品表主键id
      **/
     @Id
-    @GeneratedValue
     private Long id;
     /**
      * 创建人id
      **/
-    @Column(name = "create_id", nullable = false)
+    @JsonProperty( "create_id")
     private Long createId;
     /**
      * 创建人
      **/
-    @Column(name = "create_name", nullable = false)
+    @JsonProperty(  "create_name")
     private String createName;
     /**
      * 创建时间
      **/
-    @Column(name = "create_time", nullable = false)
+    @JsonProperty(  "create_time")
     private Date createTime;
     /**
      * 文件路径
      **/
-    @Column(name = "file_url", nullable = false)
+    @JsonProperty(  "file_url")
     private String fileUrl;
 
     /**
      * 修改id
      **/
-    @Column(name = "modify_id", nullable = false)
+    @JsonProperty(  "modify_id")
     private Long modifyId;
     /**
      * 修改人
      **/
-    @Column(name = "modify_name", nullable = false)
+    @JsonProperty(  "modify_name")
     private String modifyName;
     /**
      * 修改时间
      **/
-    @Column(name = "modify_time", nullable = false)
+    @JsonProperty(  "modify_time")
     private Date modifyTime;
     /**
      * 作品介绍
      **/
-    @Column(name = "works_desc", nullable = false)
+    @JsonProperty(  "works_desc")
     private String worksDesc;
     /**
      * 作品名
      **/
-    @Column(name = "works_name", nullable = false)
+    @JsonProperty(  "works_name")
     private String worksName;
+
+    /**
+     * 总分/票数
+     */
+    @JsonProperty(  "score")
+    private Float score;
+
+    /**
+     * 排名
+     */
+    @JsonProperty(  "ranking")
+    private Integer  ranking;
+
     /**
      * 批次
      **/
-    @Column(name = "batch", nullable = false)
+    @JsonProperty(  "batch")
     private Integer batch;
+    /**
+     * 意见
+     **/
+    @JsonProperty(  "opinion")
+    private String opinion;
 
+    /**
+     * 轮次
+     **/
+    @JsonProperty(  "rounds")
+    private Integer rounds;
 }

@@ -2,6 +2,7 @@ package com.application.audit.module.works.service.impl;
 
 import com.application.audit.module.works.dao.WorksDAO;
 import com.application.audit.module.works.entity.WorksBO;
+import com.application.audit.module.works.entity.WorksListBO;
 import com.application.audit.module.works.service.WorksService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,4 +30,8 @@ public class WorksServiceImpl implements WorksService {
         return worksDAO.findAll();
     }
 
+    @Override
+    public List<WorksListBO> allWithScore(WorksBO worksBO) {
+        return worksDAO.allWithScore();
+    }
 }

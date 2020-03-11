@@ -1,6 +1,7 @@
 package com.application.audit.module.works.controller;
 
 import com.application.audit.module.works.entity.WorksBO;
+import com.application.audit.module.works.entity.WorksListBO;
 import com.application.audit.module.works.service.WorksService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -52,6 +53,16 @@ public class WorksController {
     @RequestMapping("/getSort")
     private List<WorksBO> getSort(WorksBO worksBO){
         return worksService.all(worksBO);
+    }
+
+    /**
+     * 汇总作品(带评分）
+     * @param worksBO
+     * @return
+     */
+    @RequestMapping("/getAllWithScore")
+    private List<WorksListBO> getAllWithScore(WorksBO worksBO){
+        return worksService.allWithScore(worksBO);
     }
     //todo 作品导出
     //todo 评审结果

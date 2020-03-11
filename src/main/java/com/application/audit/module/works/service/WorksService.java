@@ -1,6 +1,7 @@
 package com.application.audit.module.works.service;
 
 import com.application.audit.module.works.entity.WorksBO;
+import com.application.audit.module.works.entity.WorksListBO;
 
 import java.util.List;
 
@@ -14,4 +15,6 @@ public interface WorksService {
     WorksBO saveWorks(WorksBO worksBO);
 
     List<WorksBO> all(WorksBO worksBO);
+
+    List<WorksListBO> allWithScore(WorksBO worksBO);
 }
