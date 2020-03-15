@@ -22,9 +22,16 @@ public class ConfigController {
         return configService.getConfig();
     }
 
+    @RequestMapping("findConfig")
+    private ConfigBO findConfig(){
+        return configService.findConfig();
+    }
+
     @RequestMapping("updateConfig")
     private ConfigBO updateConfig(ConfigBO configBO){
         return configService.updateConfig(configBO);
     }
+
+
 
 }

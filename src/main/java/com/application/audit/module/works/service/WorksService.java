@@ -1,5 +1,6 @@
 package com.application.audit.module.works.service;
 
+import com.application.audit.module.works.entity.CountWorksBO;
 import com.application.audit.module.works.entity.WorksBO;
 import com.application.audit.module.works.entity.WorksListBO;
 
@@ -17,4 +18,8 @@ public interface WorksService {
     List<WorksBO> all(WorksBO worksBO);
 
     List<WorksListBO> allWithScore(WorksBO worksBO);
+
+    List<WorksListBO> allWithScoreSearch(WorksBO worksBO);
+
+    List<CountWorksBO> getCount();
 }

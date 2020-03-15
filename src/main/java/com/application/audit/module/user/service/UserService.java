@@ -10,7 +10,7 @@ import java.util.List;
  * @time: 2020/3/7 11:39
  */
 public interface UserService {
-    boolean findLoginAccountAndPasswordAndType(UserBO userBo);
+    UserBO findLoginAccountAndPasswordAndType(UserBO userBo);
 
     UserBO findById(Long userId);
 
@@ -21,4 +21,6 @@ public interface UserService {
     void changeInfo(UserBO userBO);
 
     List<UserBO> getAll(UserBO userBO);
+
+    List<UserBO> getUserListSearch(UserBO userBO);
 }

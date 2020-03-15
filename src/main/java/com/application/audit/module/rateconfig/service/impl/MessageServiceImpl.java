@@ -2,11 +2,16 @@ package com.application.audit.module.rateconfig.service.impl;
 
 import com.application.audit.module.rateconfig.dao.ConfigBatisDAO;
 import com.application.audit.module.rateconfig.dao.ConfigDAO;
+import com.application.audit.module.rateconfig.dao.MessageDAO;
 import com.application.audit.module.rateconfig.entity.ConfigBO;
+import com.application.audit.module.rateconfig.entity.MessageBO;
 import com.application.audit.module.rateconfig.service.ConfigService;
+import com.application.audit.module.rateconfig.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * @description:
@@ -14,27 +19,18 @@ import org.springframework.transaction.annotation.Transactional;
  * @time: 2020/3/7 17:39
  */
 @Service
-public class ConfigServiceImpl implements ConfigService {
+public class MessageServiceImpl implements MessageService {
     @Autowired
-    private ConfigDAO configDAO;
+    private MessageDAO messageDAO;
 
-    @Autowired
-    private ConfigBatisDAO configBatisDAO;
+
     @Override
-    public ConfigBO getConfig() {
-
-        return configDAO.findConfig();
+    public List<MessageBO> getMessage() {
+        return messageDAO.findAllBySearch();
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
-    public ConfigBO updateConfig(ConfigBO configBO) {
-        return configDAO.save(configBO);
-    }
-
-
-    @Override
-    public ConfigBO findConfig() {
-        return configBatisDAO.findConfig();
+    public MessageBO saveMessage(MessageBO messageBO) {
+        return messageDAO.save(messageBO);
     }
 }

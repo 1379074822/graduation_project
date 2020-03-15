@@ -44,12 +44,6 @@ public class SimpleJpaRepositoryImpl<T, ID> extends SimpleJpaRepository<T, ID> {
         Optional<T> optionalT;
         if (StringUtils.isEmpty(entityId)) {
             String uuid = UUID.randomUUID().toString();
-            //防止UUID重复
-            if (findById((ID) uuid).isPresent()) {
-                uuid = UUID.randomUUID().toString();
-            }
-            //若ID为空 则设置为UUID
-            new BeanWrapperImpl(entity).setPropertyValue(entityInformation.getIdAttribute().getName(), uuid);
             //标记为新增数据
             optionalT = Optional.empty();
         } else {

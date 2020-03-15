@@ -1,12 +1,21 @@
 server:
-  port: 8080
+  port: 8081
 
 spring:
   datasource:
     username: user02
     password: Lyc0802!
     url: jdbc:mysql://47.103.29.16:3306/graduation_project?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    maxWait: 1200000L
+    timeBetweenEvictionRunsMillis: 30000
+    ConnectionTestQuery: SELECT 1
+    max-lifetime: 1200000L
+    minimum-idle: 3
+    maximum-pool-size: 10
+    hikari:
+      maximum-pool-size: 10
+      max-lifetime: 60000
 
   jpa:
     properties:
@@ -17,10 +26,6 @@ spring:
         format_sql: true
     show-sql: true
 #
-#mybatis:
-#  mapper-locations: classpath:mapping/*DAO.xml
-#  config-location: classpath:mybatis-config.xml
-#  type-aliases-package: com.application.audit.module.*.entity
 
 #showSql
 logging:
@@ -28,3 +33,11 @@ logging:
     com:
       example:
         mapper : debug
+#mybatis的相关配置
+mybatis:
+  #mapper配置文件
+  mapper-locations: classpath:mapping/*.xml
+  type-aliases-package: com.application.audit.module
+  #开启驼峰命名
+  configuration:
+    map-underscore-to-camel-case: true

@@ -1,6 +1,8 @@
 package com.application.audit.module.works.service.impl;
 
+import com.application.audit.module.works.dao.WorksBatisDAO;
 import com.application.audit.module.works.dao.WorksDAO;
+import com.application.audit.module.works.entity.CountWorksBO;
 import com.application.audit.module.works.entity.WorksBO;
 import com.application.audit.module.works.entity.WorksListBO;
 import com.application.audit.module.works.service.WorksService;
@@ -19,6 +21,8 @@ import java.util.List;
 public class WorksServiceImpl implements WorksService {
     @Autowired
     private WorksDAO worksDAO;
+    @Autowired
+    private WorksBatisDAO worksBatisDAO;
     @Override
     @Transactional(rollbackFor = Exception.class)
     public WorksBO saveWorks(WorksBO worksBO) {
@@ -33,5 +37,15 @@ public class WorksServiceImpl implements WorksService {
     @Override
     public List<WorksListBO> allWithScore(WorksBO worksBO) {
         return worksDAO.allWithScore();
+    }
+
+    @Override
+    public List<WorksListBO> allWithScoreSearch(WorksBO worksBO) {
+        return worksBatisDAO.allWithScoreSearch(worksBO);
+    }
+
+    @Override
+    public List<CountWorksBO> getCount() {
+        return worksBatisDAO.getCountWorks();
     }
 }

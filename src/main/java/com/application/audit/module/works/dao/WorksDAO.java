@@ -15,10 +15,19 @@ import java.util.List;
  */
 @Repository
 public interface WorksDAO extends JpaRepository<WorksBO,Long> {
-    @Query(nativeQuery = true,
+    @Query(
             value = "select new com.application.audit.module.works.entity.WorksListBO(" +
-                    "w.id,)" +
+                    "w.id,w.createId,w.createName,w.createTime,w.fileUrl,w.modifyId,w.modifyName," +
+                    "w.modifyTime,w.worksDesc,w.worksName,s.score,w.batch,s.opinion,s.rounds)" +
                     "from WorksBO w,ScoreBO s,UserBO u " +
-                    "where w.create_id = u.id and s.works_id = w.id")
+                    "where w.createId = u.id and s.worksId = w.id")
     List<WorksListBO> allWithScore();
+
+     @Query(
+            value = "select new com.application.audit.module.works.entity.WorksListBO(" +
+                    "w.id,w.createId,w.createName,w.createTime,w.fileUrl,w.modifyId,w.modifyName," +
+                    "w.modifyTime,w.worksDesc,w.worksName,s.score,w.batch,s.opinion,s.rounds)" +
+                    "from WorksBO w,ScoreBO s,UserBO u " +
+                    "where w.createId = u.id and s.worksId = w.id and w.createName like ?1 and w.worksName like ?2")
+    List<WorksListBO> allWithScoreSearch(String createName, String worksName);
 }

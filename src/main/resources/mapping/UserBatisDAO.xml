@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.application.audit.module.user.dao.UserBatisDao">
+
+    <select id="getUserListSearch" parameterType="UserBO" resultType="UserBO">
+        select
+        id as id,
+        user_name as userName,
+        phone_num as phoneNum,
+        age as age,
+        gender as gender,
+        status as status,
+        create_time as createTime,
+        profession as profession
+        from t_user
+        where
+        `type` = #{type}
+        <if test="userName != null and userName!=''">
+            and user_name like "%${userName}%"
+        </if>
+        <if test="phoneNum != null and phoneNum!=''">
+            and phone_num like "%${phoneNum}%"
+        </if>
+        <if test="status != 0">
+            and status like "%${status}%"
+        </if>
+       order by create_time desc
+    </select>
+</mapper>

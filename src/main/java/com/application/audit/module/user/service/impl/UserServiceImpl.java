@@ -1,5 +1,7 @@
 package com.application.audit.module.user.service.impl;
 
+import com.application.audit.common.utils.MD5Utils;
+import com.application.audit.module.user.dao.UserBatisDao;
 import com.application.audit.module.user.dao.UserDao;
 import com.application.audit.module.user.entity.UserBO;
 import com.application.audit.module.user.service.UserService;
@@ -7,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * @description:
@@ -21,10 +23,12 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userDao;
 
+    @Autowired
+    private UserBatisDao userBatisDao;
+
     @Override
-    public boolean findLoginAccountAndPasswordAndType(UserBO userBO) {
-        UserBO byLoginAccountAndPassword = userDao.findByLoginAccountAndPasswordAndTypeAndStatus(userBO.getLoginAccount(),userBO.getPassword(),userBO.getType(),1);
-        return Objects.nonNull(byLoginAccountAndPassword);
+    public UserBO findLoginAccountAndPasswordAndType(UserBO userBO) {
+        return userDao.findByLoginAccountAndPasswordAndTypeAndStatus(userBO.getLoginAccount(),MD5Utils.encryptPassword(userBO.getPassword()),userBO.getType(),1);
     }
 
     @Override
@@ -35,13 +39,16 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public UserBO save(UserBO userBO) {
+        userBO.setPassword(MD5Utils.encryptPassword(userBO.getPassword()));
+        userBO.setStatus(1);
+        userBO.setCreateTime(new Date());
          return  userDao.save(userBO);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void changePassword(UserBO userBO) {
-        userDao.changePassword(userBO.getPassword(),userBO.getId());
+        userDao.changePassword(MD5Utils.encryptPassword(userBO.getPassword()),userBO.getId());
     }
 
     @Override
@@ -53,5 +60,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserBO> getAll(UserBO userBO) {
         return userDao.findByType(userBO.getType());
+    }
+
+    @Override
+    public List<UserBO> getUserListSearch(UserBO userBO) {
+        return userBatisDao.getUserListSearch(userBO);
     }
 }

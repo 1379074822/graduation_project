@@ -5,8 +5,10 @@ import lombok.Data;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.Date;
 
 /**
  * @description:
@@ -20,7 +22,7 @@ public class UserBO {
 
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "user_name", nullable = false)
@@ -44,6 +46,12 @@ public class UserBO {
     private Integer status;
     @Column(name = "type",nullable = false)
     private Integer type;
+    @Column(name = "create_time")
+    private Date createTime;
 
+    private String statusDesc;
+    private String genderDesc;
+    private String  createTimeDesc;
+    private String  professionDesc;
 
 }
