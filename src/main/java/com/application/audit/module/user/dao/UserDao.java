@@ -21,4 +21,6 @@ public interface UserDao extends JpaRepository<UserBO,Long> {
     void changePassword(String password,Long id);
 
     List<UserBO> findByType(Integer type);
+
+    UserBO findByIdAndPassword(Long id, String encryptPassword);
 }

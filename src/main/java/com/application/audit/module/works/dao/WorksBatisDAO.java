@@ -19,4 +19,10 @@ import java.util.List;
 public interface WorksBatisDAO  {
     List<WorksListBO> allWithScoreSearch(WorksBO worksBO);
     List<CountWorksBO> getCountWorks();
+
+    List<String> getNew();
+
+    List<WorksListBO> getHighScore();
+
+    List<WorksListBO> getWorksByUser(Long createId);
 }

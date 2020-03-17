@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -26,6 +27,9 @@ public class WorksServiceImpl implements WorksService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public WorksBO saveWorks(WorksBO worksBO) {
+        worksBO.setCreateTime(new Date());
+        worksBO.setStatus(1);
+        worksBO.setBatch(1);
         return worksDAO.save(worksBO);
     }
 
@@ -47,5 +51,20 @@ public class WorksServiceImpl implements WorksService {
     @Override
     public List<CountWorksBO> getCount() {
         return worksBatisDAO.getCountWorks();
+    }
+
+    @Override
+    public List<String> getNew() {
+        return worksBatisDAO.getNew();
+    }
+
+    @Override
+    public List<WorksListBO> getHighScore() {
+        return worksBatisDAO.getHighScore();
+    }
+
+    @Override
+    public List<WorksListBO> getWorksByUser(Long createId) {
+        return worksBatisDAO.getWorksByUser(createId);
     }
 }

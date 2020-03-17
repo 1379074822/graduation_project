@@ -22,4 +22,10 @@ public interface WorksService {
     List<WorksListBO> allWithScoreSearch(WorksBO worksBO);
 
     List<CountWorksBO> getCount();
+
+    List<String> getNew();
+
+    List<WorksListBO> getHighScore();
+
+    List<WorksListBO> getWorksByUser(Long createId);
 }

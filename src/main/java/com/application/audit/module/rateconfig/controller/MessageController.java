@@ -6,6 +6,7 @@ import com.application.audit.module.rateconfig.entity.MessageViewBO;
 import com.application.audit.module.rateconfig.service.ConfigService;
 import com.application.audit.module.rateconfig.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -44,7 +45,7 @@ public class MessageController {
 
 
     @RequestMapping("saveMessage")
-    private MessageBO saveMessage(MessageBO messageBO){
+    private MessageBO saveMessage(@RequestBody  MessageBO messageBO){
         return messageService.saveMessage(messageBO);
     }
 

@@ -53,5 +53,5 @@ public class UserBO {
     private String genderDesc;
     private String  createTimeDesc;
     private String  professionDesc;
-
+    private String newPassword;
 }

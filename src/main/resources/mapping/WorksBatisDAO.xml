@@ -5,7 +5,7 @@
 <mapper namespace="com.application.audit.module.works.dao.WorksBatisDAO">
 
     <select id="allWithScoreSearch" parameterType="WorksBO" resultType="WorksListBO">
-        select
+        select DISTINCT
         w.id as id,
         w.create_id as createId,
         w.create_name as createName,
@@ -13,9 +13,10 @@
         w.file_url as fileUrl,
         w.works_desc as worksDesc,
         w.works_name as worksName,
-        s.score as score,
+        (select  sum(s.score) from t_score s where s.works_id = w.id)as score,
         w.batch as batch,
-        w.status as status
+        w.status as status,
+        w.type as `type`
         from t_works w
         left join t_user u on w.create_id = u.id
         left join t_score s on s.works_id  = w.id
@@ -32,5 +33,53 @@
 
     <select id="getCountWorks" resultType="CountWorksBO">
         SELECT count(*) as value,`type` as type FROM `t_works` group by type
+    </select>
+
+    <select id="getNew" resultType="String">
+        select file_url from t_works
+        order by create_time
+        limit 5
+    </select>
+
+    <select id="getHighScore" resultType="WorksListBO">
+        select DISTINCT
+        w.id as id,
+        w.create_id as createId,
+        w.create_name as createName,
+        w.create_time as createTime,
+        w.file_url as fileUrl,
+        w.works_desc as worksDesc,
+        w.works_name as worksName,
+        (select  sum(s.score) from t_score s where s.works_id = w.id)as score,
+        w.batch as batch,
+        w.status as status
+        from t_works w
+        left join t_user u on w.create_id = u.id
+        left join t_score s on s.works_id  = w.id
+        where score is not null
+        and w.status =1
+        order by score desc
+        limit 3
+
+    </select>
+
+    <select id="getWorksByUser" parameterType="Long" resultType="WorksListBO">
+        select DISTINCT
+        w.id as id,
+        w.create_id as createId,
+        w.create_name as createName,
+        w.create_time as createTime,
+        w.file_url as fileUrl,
+        w.works_desc as worksDesc,
+        w.works_name as worksName,
+        (select  sum(s.score) from t_score s where s.works_id = w.id)as score,
+        w.batch as batch,
+        w.status as status,
+        w.type as `type`
+        from t_works w
+        left join t_user u on w.create_id = u.id
+        left join t_score s on s.works_id  = w.id
+        and w.create_id = #{createId}
+        order by w.create_time desc
     </select>
 </mapper>

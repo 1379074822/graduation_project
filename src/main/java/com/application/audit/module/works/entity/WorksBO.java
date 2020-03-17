@@ -82,4 +82,10 @@ public class WorksBO {
      **/
     @Column(name = "status", nullable = false)
     private Integer status;
+
+    /**
+     * 类型
+     **/
+    @Column(name = "type", nullable = false)
+    private Integer type;
 }

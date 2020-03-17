@@ -47,14 +47,19 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void changePassword(UserBO userBO) {
+    public boolean changePassword(UserBO userBO) {
+        UserBO alive = userDao.findByIdAndPassword(userBO.getId(),MD5Utils.encryptPassword(userBO.getPassword()));
+        if(null==alive){
+           return false;
+        }
         userDao.changePassword(MD5Utils.encryptPassword(userBO.getPassword()),userBO.getId());
+        return true;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void changeInfo(UserBO userBO) {
-        userDao.save(userBO);
+    public UserBO changeInfo(UserBO userBO) {
+        return userDao.save(userBO);
     }
 
     @Override

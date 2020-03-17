@@ -16,9 +16,9 @@ public interface UserService {
 
     UserBO save(UserBO userBO);
 
-    void changePassword(UserBO userBO);
+    boolean changePassword(UserBO userBO);
 
-    void changeInfo(UserBO userBO);
+    UserBO changeInfo(UserBO userBO);
 
     List<UserBO> getAll(UserBO userBO);
 

@@ -42,6 +42,11 @@ public class WorksListBO {
      * 状态
      **/
     private Integer status;
+
+    /**
+     * 类型
+     **/
+    private Integer type;
     /**
      * 状态
      **/

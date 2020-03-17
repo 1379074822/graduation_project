@@ -26,22 +26,22 @@ public class MessageBO {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     /**
-     * 通过人数启用状态
+     * 评论id
      **/
     @Column(name = "user_id", nullable = false)
     private Long userId;
     /**
-     * 通过人数
+     * 内容
      **/
     @Column(name = "text", nullable = false)
     private String text;
     /**
-     * 通过率
+     * 生成时间
      **/
     @Column(name = "create_time", nullable = false)
     private Date createTime;
     /**
-     * 通过率启用状态
+     * 等级
      **/
     @Column(name = "level", nullable = false)
     private Integer level;

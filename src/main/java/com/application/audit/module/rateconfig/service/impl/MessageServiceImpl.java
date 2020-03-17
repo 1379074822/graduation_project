@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -31,6 +32,7 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public MessageBO saveMessage(MessageBO messageBO) {
+        messageBO.setCreateTime(new Date());
         return messageDAO.save(messageBO);
     }
 }
