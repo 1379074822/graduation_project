@@ -82,4 +82,51 @@
         and w.create_id = #{createId}
         order by w.create_time desc
     </select>
+
+    <select id="getWorksUnScore" parameterType="Long" resultType="WorksListBO">
+        select DISTINCT
+        w.id as id,
+        w.create_id as createId,
+        w.create_name as createName,
+        w.create_time as createTime,
+        w.file_url as fileUrl,
+        w.works_desc as worksDesc,
+        w.works_name as worksName,
+        (select  sum(s.score) from t_score s where s.works_id = w.id)as score,
+        w.batch as batch,
+        w.status as status,
+        w.type as `type`
+        from t_works w
+        left join t_user u on w.create_id = u.id
+        left join t_score s on s.works_id  = w.id
+        where
+        w.id  not in (select s.works_id from t_score s where s.rater_id = #{id})
+        order by w.create_time desc
+    </select>
+
+    <select id="getHighRate" parameterType="Integer" resultType="WorksListBO">
+        select DISTINCT
+        w.id as id,
+        w.create_id as createId,
+        w.create_name as createName,
+        w.create_time as createTime,
+        w.file_url as fileUrl,
+        w.works_desc as worksDesc,
+        w.works_name as worksName,
+        e.rate as score,
+        w.batch as batch,
+        w.status as status,
+        w.type as `type`
+        from t_excellent_works e
+        left join t_works w on e.works_id  = w.id
+				left join t_user u on w.create_id = u.id
+        order by w.create_time desc
+    </select>
+    <update id="vote" parameterType="WorksBO" >
+        update t_excellent_works
+        set rate = rate+1
+        where
+        works_id = #{id}
+        and batch = batch
+    </update>
 </mapper>

@@ -3,6 +3,7 @@ package com.application.audit.module.rateconfig.controller;
 import com.application.audit.module.rateconfig.entity.ConfigBO;
 import com.application.audit.module.rateconfig.service.ConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,8 +29,13 @@ public class ConfigController {
     }
 
     @RequestMapping("updateConfig")
-    private ConfigBO updateConfig(ConfigBO configBO){
+    private ConfigBO updateConfig(@RequestBody ConfigBO configBO){
         return configService.updateConfig(configBO);
+    }
+
+    @RequestMapping("updateVote")
+    private ConfigBO updateVote(@RequestBody ConfigBO configBO){
+        return configService.updateVote(configBO);
     }
 
 

@@ -28,4 +28,13 @@
         </if>
        order by create_time desc
     </select>
+
+    <update id="freezeAudit" >
+        update t_user
+        set status =2
+        where
+        `type`=3
+        and
+        age>65
+    </update>
 </mapper>

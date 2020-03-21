@@ -71,4 +71,9 @@ public class UserServiceImpl implements UserService {
     public List<UserBO> getUserListSearch(UserBO userBO) {
         return userBatisDao.getUserListSearch(userBO);
     }
+
+    @Override
+    public Integer freezeAudit() {
+        return userBatisDao.freezeAudit();
+    }
 }

@@ -28,4 +28,10 @@ public interface WorksService {
     List<WorksListBO> getHighScore();
 
     List<WorksListBO> getWorksByUser(Long createId);
+
+    List<WorksListBO> getWorksUnScore(Long id);
+
+    List<WorksListBO> getHighRate(Integer batch);
+
+    String vote(WorksBO worksBO);
 }

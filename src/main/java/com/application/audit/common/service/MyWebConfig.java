@@ -2,7 +2,7 @@ package com.application.audit.common.service;
 
 /**
  * @description:
- * @author: lyc yuechuan.lian@luckincoffee.com
+ * @author:
  * @time: 2020/3/16 23:18
  */
 import org.springframework.context.annotation.Configuration;

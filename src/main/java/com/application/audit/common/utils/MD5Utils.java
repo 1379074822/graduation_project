@@ -8,7 +8,7 @@ import java.security.NoSuchAlgorithmException;
 
 /**
  * @description:
- * @author: lyc yuechuan.lian@luckincoffee.com
+ * @author:
  * @time: 2020/3/9 19:15
  */
 public class MD5Utils {

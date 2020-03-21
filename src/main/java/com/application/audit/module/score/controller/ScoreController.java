@@ -4,6 +4,7 @@ import com.application.audit.module.score.dao.ScoreDAO;
 import com.application.audit.module.score.entity.ScoreBO;
 import com.application.audit.module.score.service.ScoreService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,7 +25,7 @@ public class ScoreController {
      * @return
      */
     @RequestMapping("/saveScore")
-    private ScoreBO saveScore(ScoreBO scoreBO){
+    private ScoreBO saveScore(@RequestBody ScoreBO scoreBO){
         return scoreService.saveScore(scoreBO);
     }
 
@@ -34,7 +35,7 @@ public class ScoreController {
      * @return
      */
     @RequestMapping("/savePoll")
-    private ScoreBO savePoll(ScoreBO scoreBO){
+    private ScoreBO savePoll(@RequestBody ScoreBO scoreBO){
         return scoreService.savePoll(scoreBO);
     }
 

@@ -46,8 +46,12 @@ public class UserBO {
     private Integer status;
     @Column(name = "type",nullable = false)
     private Integer type;
+    @Column(name = "ticket",nullable = false)
+    private Integer ticket;
     @Column(name = "create_time")
     private Date createTime;
+    @Column(name = "level")
+    private String level;
 
     private String statusDesc;
     private String genderDesc;

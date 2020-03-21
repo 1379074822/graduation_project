@@ -7,9 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
+
 /**
  * @description:
- * @author: lyc yuechuan.lian@luckincoffee.com
+ * @author:
  * @time: 2020/3/8 9:40
  */
 @Service
@@ -20,6 +22,7 @@ public class ScoreServiceImpl implements ScoreService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public ScoreBO saveScore(ScoreBO scoreBO) {
+        scoreBO.setScoreTime(new Date());
         return scoreDAO.save(scoreBO);
     }
 

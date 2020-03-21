@@ -4,7 +4,7 @@ import lombok.Data;
 
 /**
  * @description:
- * @author: lyc yuechuan.lian@luckincoffee.com
+ * @author:
  * @time: 2020/3/15 22:23
  */
 @Data

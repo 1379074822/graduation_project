@@ -44,4 +44,11 @@ public class ConfigBO {
      **/
     @Column(name = "rate_status", nullable = false)
     private Integer rateStatus;
+    /**
+     * 通过率启用状态
+     **/
+    @Column(name = "voteStatus", nullable = false)
+    private Integer voteStatus;
+
+    private Integer batch;
 }

@@ -10,11 +10,14 @@ import java.util.List;
 
 /**
  * @description:
- * @author: lyc yuechuan.lian@luckincoffee.com
+ * @author:
  * @time: 2020/3/7 11:39
  */
 @Mapper
 public interface UserBatisDao  {
 
     List<UserBO> getUserListSearch(UserBO userBO);
+
+
+    Integer freezeAudit();
 }

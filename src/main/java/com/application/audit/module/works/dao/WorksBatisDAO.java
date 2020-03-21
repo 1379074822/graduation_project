@@ -25,4 +25,10 @@ public interface WorksBatisDAO  {
     List<WorksListBO> getHighScore();
 
     List<WorksListBO> getWorksByUser(Long createId);
+
+    List<WorksListBO> getWorksUnScore(Long id);
+
+    List<WorksListBO> getHighRate(Integer batch);
+
+    void vote(WorksBO worksBO);
 }

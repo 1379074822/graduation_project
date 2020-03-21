@@ -1,5 +1,6 @@
 package com.application.audit.module.user.controller;
 
+import com.application.audit.common.enums.AuditProfessionEnum;
 import com.application.audit.common.enums.GenderEnum;
 import com.application.audit.common.enums.ProfessionEnum;
 import com.application.audit.common.enums.StatusEnum;
@@ -68,7 +69,7 @@ public class UserOperationController {
             bo.setCreateTimeDesc(simpleDateFormat.format(bo.getCreateTime()));
             bo.setGenderDesc(GenderEnum.getNameByIndex(bo.getGender()));
             if(userBO.getType()==3){
-            bo.setProfessionDesc(ProfessionEnum.getNameByIndex(bo.getProfession()));
+            bo.setProfessionDesc(AuditProfessionEnum.getNameByIndex(bo.getProfession()));
             }
         }
         return list;

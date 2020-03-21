@@ -11,4 +11,21 @@
         rate_status as rateStatus
         from t_config
     </select>
+    <insert id="saveGoodWorks" parameterType="list" >
+            insert into t_excellent_works
+            (works_id,batch)
+            values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.id},#{item.batch})
+        </foreach>
+
+    </insert>
+
+    <select id="selectGood" resultType="WorksBO" parameterType="ConfigBO">
+        select distinct w.id,w.batch from t_works w
+        left join t_score s on s.works_id = w.id
+        where w.batch = #{batch}
+        order by (select  sum(s.score) from t_score s where s.works_id = w.id) desc
+        limit #{passNum}
+    </select>
 </mapper>

@@ -1,5 +1,8 @@
 package com.application.audit.module.works.service.impl;
 
+import com.application.audit.module.user.dao.UserBatisDao;
+import com.application.audit.module.user.dao.UserDao;
+import com.application.audit.module.user.entity.UserBO;
 import com.application.audit.module.works.dao.WorksBatisDAO;
 import com.application.audit.module.works.dao.WorksDAO;
 import com.application.audit.module.works.entity.CountWorksBO;
@@ -15,7 +18,7 @@ import java.util.List;
 
 /**
  * @description:
- * @author: lyc yuechuan.lian@luckincoffee.com
+ * @author:
  * @time: 2020/3/8 9:42
  */
 @Service
@@ -24,6 +27,9 @@ public class WorksServiceImpl implements WorksService {
     private WorksDAO worksDAO;
     @Autowired
     private WorksBatisDAO worksBatisDAO;
+    @Autowired
+    private UserDao userDao;
+
     @Override
     @Transactional(rollbackFor = Exception.class)
     public WorksBO saveWorks(WorksBO worksBO) {
@@ -66,5 +72,27 @@ public class WorksServiceImpl implements WorksService {
     @Override
     public List<WorksListBO> getWorksByUser(Long createId) {
         return worksBatisDAO.getWorksByUser(createId);
+    }
+
+    @Override
+    public List<WorksListBO> getWorksUnScore(Long id) {
+        return worksBatisDAO.getWorksUnScore(id);
+    }
+
+    @Override
+    public List<WorksListBO> getHighRate(Integer batch) {
+        return worksBatisDAO.getHighRate(batch);
+    }
+
+    @Override
+    public String vote(WorksBO worksBO) {
+        UserBO userBO = userDao.findById(worksBO.getCreateId()).get();
+        if(userBO.getTicket()<1){
+            return "您的票数为0，无法继续投票";
+        }
+        worksBatisDAO.vote(worksBO);
+        userBO.setTicket(userBO.getTicket()-1);
+        userDao.save(userBO);
+        return "为他投票成功！剩余票数："+(userBO.getTicket()-1);
     }
 }

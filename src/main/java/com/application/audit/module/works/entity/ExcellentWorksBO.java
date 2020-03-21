@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 /**
  * @description:
- * @author: lyc yuechuan.lian@luckincoffee.com
+ * @author:
  * @time: 2020/3/7 17:13
  */
 @Entity(name = "ExcellentWorksBO")
@@ -30,10 +30,10 @@ public class ExcellentWorksBO {
     @Column(name = "batch", nullable = false)
     private Integer batch;
     /**
-     * 排名
+     * 票数
      **/
-    @Column(name = "ranking", nullable = false)
-    private Integer ranking;
+    @Column(name = "rate", nullable = false)
+    private Integer rate;
     /**
      * 作品id
      **/

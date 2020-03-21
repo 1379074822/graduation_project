@@ -2,36 +2,53 @@ package com.application.audit.module.works.controller;
 
 import com.application.audit.common.enums.ProfessionEnum;
 import com.application.audit.common.enums.StatusEnum;
+import com.application.audit.common.utils.SFTPUtil;
 import com.application.audit.module.works.entity.CountWorksAO;
 import com.application.audit.module.works.entity.CountWorksBO;
 import com.application.audit.module.works.entity.WorksBO;
 import com.application.audit.module.works.entity.WorksListBO;
 import com.application.audit.module.works.service.WorksService;
-import org.apache.tomcat.util.http.fileupload.IOUtils;
+import com.jcraft.jsch.SftpException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @description:
- * @author: lyc yuechuan.lian@luckincoffee.com
+ * @author:
  * @time: 2020/3/8 9:42
  */
 @RequestMapping("/works")
 @RestController
 public class WorksController {
+
+    @Value("${FTP.ADDRESS}")
+    private String host;
+    // 端口
+    @Value("${FTP.PORT}")
+    private int port;
+    // ftp用户名
+    @Value("${FTP.USERNAME}")
+    private String userName;
+    // ftp用户密码
+    @Value("${FTP.PASSWORD}")
+    private String passWord;
+    // 文件在服务器端保存的主目录
+    @Value("${FTP.BASEPATH}")
+    private String basePath;
+    // 访问图片时的基础url
+    @Value("${IMAGE.BASE.URL}")
+    private String baseUrl;
     @Autowired
     private WorksService worksService;
 
@@ -108,6 +125,15 @@ public class WorksController {
 
         return worksListBOS;
     }
+ @RequestMapping("/getWorksUnScore")
+    private List<WorksListBO> getWorksUnScore(Long id){
+     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        List<WorksListBO> worksListBOS = worksService.getWorksUnScore(id);
+     for (WorksListBO worksListBO : worksListBOS) {
+         worksListBO.setCreateTimeDesc(simpleDateFormat.format(worksListBO.getCreateTime()));
+     }
+        return worksListBOS;
+    }
 
 
 
@@ -143,23 +169,44 @@ public class WorksController {
         return list;
     }
 
+
+    @RequestMapping("/vote")
+    private String vote(@RequestBody WorksBO worksBO){
+
+        return worksService.vote(worksBO);
+    }
+ @RequestMapping("/getHighRate")
+    private List<WorksListBO> getHighRate(Integer batch){
+        List<WorksListBO> list = worksService.getHighRate(batch);
+
+        return list;
+    }
+
     @RequestMapping("/upload")
-    public String upload(@RequestParam("file") MultipartFile multipartFile) throws IOException {
-        String prefix = "D:/image/";
-        File file = new File(prefix + multipartFile.getOriginalFilename() );
-        if(!file.exists()){
-            //先得到文件的上级目录，并创建上级目录，在创建文件
-            file.getParentFile().mkdir();
-            try {
-                //创建文件
-                file.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        FileOutputStream fileOutputStream = new FileOutputStream(file);
-        IOUtils.copy(multipartFile.getInputStream(),fileOutputStream);
-    return  "http://127.0.0.1:8083/" + multipartFile.getOriginalFilename();
+    public String upload(@RequestParam("file") MultipartFile multipartFile) throws IOException, SftpException {
+        InputStream input = multipartFile.getInputStream();
+        SFTPUtil sftp = new SFTPUtil(userName, passWord, host, port);
+        sftp.login();
+        sftp.upload(basePath, multipartFile.getOriginalFilename(), input);
+        sftp.logout();
+
+
+
+//        String prefix = "D:/image/";
+//        File file = new File(prefix + multipartFile.getOriginalFilename() );
+//        if(!file.exists()){
+//            //先得到文件的上级目录，并创建上级目录，在创建文件
+//            file.getParentFile().mkdir();
+//            try {
+//                //创建文件
+//                file.createNewFile();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//        FileOutputStream fileOutputStream = new FileOutputStream(file);
+//        IOUtils.copy(multipartFile.getInputStream(),fileOutputStream);
+    return  "http://47.103.29.16/pic/" + multipartFile.getOriginalFilename();
     }
     //todo 作品导出
     //todo 评审结果

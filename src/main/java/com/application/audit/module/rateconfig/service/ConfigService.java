@@ -4,7 +4,7 @@ import com.application.audit.module.rateconfig.entity.ConfigBO;
 
 /**
  * @description:
- * @author: lyc yuechuan.lian@luckincoffee.com
+ * @author: 
  * @time: 2020/3/7 17:39
  */
 public interface ConfigService {
@@ -13,4 +13,6 @@ public interface ConfigService {
     ConfigBO updateConfig(ConfigBO configBO);
 
     ConfigBO findConfig();
+
+    ConfigBO updateVote(ConfigBO configBO);
 }
