@@ -9,7 +9,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 
 /**
  * @description:
- * @author: lyc yuechuan.lian@luckincoffee.com
+ * @author:
  * @time: 2020/3/18 22:06
  */
 @Configuration      //1.主要用于标记配置类，兼备Component的效果。
