@@ -14,6 +14,7 @@ import java.util.List;
 public interface WorksService {
 
     WorksBO saveWorks(WorksBO worksBO);
+    WorksBO update(WorksBO worksBO);
 
     List<WorksBO> all(WorksBO worksBO);
 
@@ -34,4 +35,6 @@ public interface WorksService {
     List<WorksListBO> getHighRate(Integer batch);
 
     String vote(WorksBO worksBO);
+
+    void deleteGood();
 }

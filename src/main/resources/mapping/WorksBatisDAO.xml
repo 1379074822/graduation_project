@@ -120,7 +120,7 @@
         from t_excellent_works e
         left join t_works w on e.works_id  = w.id
 				left join t_user u on w.create_id = u.id
-        order by w.create_time desc
+        order by e.rate desc
     </select>
     <update id="vote" parameterType="WorksBO" >
         update t_excellent_works
@@ -129,4 +129,7 @@
         works_id = #{id}
         and batch = batch
     </update>
+    <delete id="deleteGood" >
+        delete from t_excellent_works
+    </delete>
 </mapper>

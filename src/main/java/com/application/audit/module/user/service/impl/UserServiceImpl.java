@@ -1,8 +1,11 @@
 package com.application.audit.module.user.service.impl;
 
 import com.application.audit.common.utils.MD5Utils;
+import com.application.audit.module.user.dao.FileBatisDao;
+import com.application.audit.module.user.dao.FileDao;
 import com.application.audit.module.user.dao.UserBatisDao;
 import com.application.audit.module.user.dao.UserDao;
+import com.application.audit.module.user.entity.FileBO;
 import com.application.audit.module.user.entity.UserBO;
 import com.application.audit.module.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * @description:
@@ -25,6 +30,10 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserBatisDao userBatisDao;
+    @Autowired
+    private FileBatisDao fileBatisDao;
+    @Autowired
+    private FileDao fileDao;
 
     @Override
     public UserBO findLoginAccountAndPasswordAndType(UserBO userBO) {
@@ -32,8 +41,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public UserBO findById(Long userId) {
-        return userDao.findById(userId).get();
+        UserBO userBO = userDao.findById(userId).get();
+        List<FileBO> files = fileDao.findByUserId(userId);
+        userBO.getPaperworks().clear();
+        for (FileBO file : files) {
+            userBO.getPaperworks().add(file.getFileUrl());
+        }
+
+        return userBO;
     }
 
     @Override
@@ -59,6 +76,16 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public UserBO changeInfo(UserBO userBO) {
+        fileDao.deleteByUserId(userBO.getId());
+        if(Objects.nonNull(userBO.getPaperworks())){
+            for (String paperwork : userBO.getPaperworks()) {
+                FileBO fileBO = new FileBO();
+                fileBO.setUserId(userBO.getId());
+                fileBO.setFileUrl(paperwork);
+                fileBatisDao.saveFile(fileBO);
+            }
+        }
+
         return userDao.save(userBO);
     }
 
@@ -75,5 +102,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public Integer freezeAudit() {
         return userBatisDao.freezeAudit();
+    }
+
+    @Override
+    public UserBO findByPhoneNum(String phone_num) {
+        return userDao.findByPhoneNum(phone_num);
+    }
+
+    @Override
+    public void init() {
+        userBatisDao.init();
     }
 }

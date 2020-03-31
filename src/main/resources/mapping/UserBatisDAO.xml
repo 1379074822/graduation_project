@@ -13,7 +13,10 @@
         gender as gender,
         status as status,
         create_time as createTime,
-        profession as profession
+        profession as profession,
+        `level` as level,
+        work_perform as workPerform,
+        research_result as researchResult
         from t_user
         where
         `type` = #{type}
@@ -23,8 +26,14 @@
         <if test="phoneNum != null and phoneNum!=''">
             and phone_num like "%${phoneNum}%"
         </if>
-        <if test="status != 0">
-            and status like "%${status}%"
+        <if test="status != 0 and status != null">
+            and status = #{status}
+        </if>
+        <if test="level != ''and level != null">
+            and `level` like "%${level}%"
+        </if>
+        <if test=" profession != 0 and profession != null ">
+            and profession = #{profession}
         </if>
        order by create_time desc
     </select>
@@ -36,5 +45,8 @@
         `type`=3
         and
         age>65
+    </update>
+    <update id="init" >
+        update t_user set ticket = 3
     </update>
 </mapper>

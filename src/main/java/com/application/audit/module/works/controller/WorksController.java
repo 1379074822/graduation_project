@@ -34,19 +34,19 @@ public class WorksController {
 
     @Value("${FTP.ADDRESS}")
     private String host;
-    // 端口
+
     @Value("${FTP.PORT}")
     private int port;
-    // ftp用户名
+
     @Value("${FTP.USERNAME}")
     private String userName;
-    // ftp用户密码
+
     @Value("${FTP.PASSWORD}")
     private String passWord;
-    // 文件在服务器端保存的主目录
+
     @Value("${FTP.BASEPATH}")
     private String basePath;
-    // 访问图片时的基础url
+
     @Value("${IMAGE.BASE.URL}")
     private String baseUrl;
     @Autowired
@@ -59,12 +59,16 @@ public class WorksController {
 
     @RequestMapping("/updateWorks")
     private WorksBO updateWorks(@RequestBody WorksBO worksBO){
-        return worksService.saveWorks(worksBO);
+        return worksService.update(worksBO);
     }
 
     @RequestMapping("/all")
     private List<WorksBO> all(WorksBO worksBO){
         return worksService.all(worksBO);
+    }
+    @RequestMapping("/deleteGood")
+    private void deleteGood(){
+         worksService.deleteGood();
     }
 
     /**
@@ -208,6 +212,5 @@ public class WorksController {
 //        IOUtils.copy(multipartFile.getInputStream(),fileOutputStream);
     return  "http://47.103.29.16/pic/" + multipartFile.getOriginalFilename();
     }
-    //todo 作品导出
-    //todo 评审结果
+
 }

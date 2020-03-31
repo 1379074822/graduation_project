@@ -31,4 +31,6 @@ public interface WorksBatisDAO  {
     List<WorksListBO> getHighRate(Integer batch);
 
     void vote(WorksBO worksBO);
+
+    void deleteGood();
 }

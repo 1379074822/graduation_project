@@ -28,11 +28,15 @@ spring:
 #
 
 #showSql
+#logging:
+#  level:
+#    com:
+#      example:
+#        mapper : debug
+
 logging:
   level:
-    com:
-      example:
-        mapper : debug
+    com.application: debug
 #mybatis的相关配置
 mybatis:
   #mapper配置文件

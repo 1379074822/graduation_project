@@ -32,6 +32,21 @@ public enum GenderEnum {
         return null;
     }
 
+    /**
+     * 根据索引获取名称
+     *
+     * @param name 索引
+     * @return index 名称
+     */
+    public static Integer getIndexByName(String name) {
+        for (GenderEnum c : GenderEnum.values()) {
+            if (c.getName().equals(name)) {
+                return c.index;
+            }
+        }
+        return null;
+    }
+
     public Integer getIndex() {
         return index;
     }

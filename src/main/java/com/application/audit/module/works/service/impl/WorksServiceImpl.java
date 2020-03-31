@@ -38,6 +38,11 @@ public class WorksServiceImpl implements WorksService {
         worksBO.setBatch(1);
         return worksDAO.save(worksBO);
     }
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public WorksBO update(WorksBO worksBO) {
+        return worksDAO.save(worksBO);
+    }
 
     @Override
     public List<WorksBO> all(WorksBO worksBO) {
@@ -93,6 +98,11 @@ public class WorksServiceImpl implements WorksService {
         worksBatisDAO.vote(worksBO);
         userBO.setTicket(userBO.getTicket()-1);
         userDao.save(userBO);
-        return "为他投票成功！剩余票数："+(userBO.getTicket()-1);
+        return "为他投票成功！剩余票数："+(userBO.getTicket());
+    }
+
+    @Override
+    public void deleteGood() {
+        worksBatisDAO.deleteGood();
     }
 }

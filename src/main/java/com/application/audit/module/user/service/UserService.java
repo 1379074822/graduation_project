@@ -24,4 +24,8 @@ public interface UserService {
 
     List<UserBO> getUserListSearch(UserBO userBO);
     Integer freezeAudit();
+
+    UserBO findByPhoneNum(String phone_num);
+
+    void init();
 }

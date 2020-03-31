@@ -19,7 +19,20 @@ public enum AuditProfessionEnum {
         this.index = index;
         this.name = name;
     }
-
+    /**
+     * 根据索引获取名称
+     *
+     * @param name 索引
+     * @return index 名称
+     */
+    public static Integer getIndexByName(String name) {
+        for (AuditProfessionEnum c : AuditProfessionEnum.values()) {
+            if (c.getName().equals(name)) {
+                return c.getIndex();
+            }
+        }
+        return null;
+    }
     /**
      * 根据索引获取名称
      *
