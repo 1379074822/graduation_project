@@ -50,7 +50,7 @@ public class TimerTask {
         Message message = new Message();
         message.setMsgtype(MessageTypeEnum.text);
         StringBuilder builder = new StringBuilder();
-        builder.append("今天是");
+        builder.append("上班啦\n今天是");
         Calendar calendar=Calendar.getInstance();
         ZhiBanEnum enumByWeek = ZhiBanEnum.getEnumByWeek(calendar.get(Calendar.DAY_OF_WEEK) - 1);
         builder.append(weekDays[calendar.get(Calendar.DAY_OF_WEEK)-1]);
@@ -58,6 +58,25 @@ public class TimerTask {
         builder.append("值班人员为:");
         builder.append(enumByWeek.getName());
         builder.append("  请注意业务群消息~及时反馈~");
+        builder.append("\n");
+        builder.append("今日份鸡汤:");
+        builder.append(jitang());
+        builder.append("  加油!打工人!");
+        TextMessage textMessage = new TextMessage();
+        textMessage.setContent(builder.toString());
+        textMessage.setMentioned_list(Arrays.asList(enumByWeek.getPinyin()));
+        JSONObject text = JSONObject.parseObject(JSONObject.toJSONString(textMessage));
+        message.setText(text);
+        MessageManager.sendMessage(message, webHookAddress);
+    }
+
+    @Scheduled(cron = "0 0 8 * * ? ")
+    private static void tianqiyubao() {
+        String webHookAddress = "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=55eebf57-4579-4de8-91ab-b126ff0d20f8";
+        //发送文本消息
+        Message message = new Message();
+        message.setMsgtype(MessageTypeEnum.text);
+        StringBuilder builder = new StringBuilder();
         Weather weather = getWeather();
         if(Objects.nonNull(weather)){
             builder.append(" \n");
@@ -76,7 +95,7 @@ public class TimerTask {
         }
         TextMessage textMessage = new TextMessage();
         textMessage.setContent(builder.toString());
-        textMessage.setMentioned_list(Arrays.asList(enumByWeek.getPinyin()));
+        textMessage.setMentioned_list(Arrays.asList("@all"));
         JSONObject text = JSONObject.parseObject(JSONObject.toJSONString(textMessage));
         message.setText(text);
         MessageManager.sendMessage(message, webHookAddress);
@@ -110,8 +129,30 @@ public class TimerTask {
         return weather;
     }
 
+
+    private static String jitang(){
+        String data = "";
+        try{
+            URL url = new URL("https://data.zhai78.com/openOneGood.php");
+            InputStreamReader isReader =  new InputStreamReader(url.openStream(),"UTF-8");
+            BufferedReader br = new BufferedReader(isReader);
+            StringBuffer stringBuffer = new StringBuffer();
+            String str;
+            while((str = br.readLine()) != null){
+                stringBuffer.append(str);
+            }
+            JSONObject jsonObject = JSONObject.parseObject(stringBuffer.toString());
+             data = jsonObject.getString("txt");
+            br.close();//网上资源使用结束后，数据流及时关闭
+            isReader.close();
+        }
+        catch(Exception exp){
+            System.out.println(exp);
+        }
+        return data;
+    }
+
     public static void main(String[] args) {
-       text();
     }
 
 }

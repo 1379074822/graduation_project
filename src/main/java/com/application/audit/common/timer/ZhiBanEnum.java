@@ -9,7 +9,7 @@ public enum ZhiBanEnum {
 
     lyc(1, "连跃川","lianyuechuan"),
     cxy(2, "崔修印","cuixiuyin"),
-    wr(3, "王蓉","wangrong"),
+    wr(3, "王蓉","wangrong01"),
     wdx(4, "王德馨","wangdexin"),
     ylv(5, "杨吕锦","yanglvjin"),
     no(6, "无人值班",""),
